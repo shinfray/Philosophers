@@ -4,9 +4,9 @@
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
+#                                                +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 17:10:39 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/03 08:55:35 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/03 14:41:52 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,9 @@ OBJS:=	${SRCS:%.c=${BUILD_DIR}/%.o}
 
 DEPS:=	${OBJS:.o=.d}
 
-CPPFLAGS:= ${addprefix -I,${INC_DIRS}} -MMD -MP
+CPPFLAGS:= ${addprefix -I,${INC_DIRS}} -MMD -MP -pthread
 
-LDFLAGS:= ${addprefix -L,${LIB_DIRS}}
+LDFLAGS:= ${addprefix -L,${LIB_DIRS}} -pthread
 
 RM:=	rm -rf
 
