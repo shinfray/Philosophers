@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/03 17:22:32 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/04 11:08:24 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,14 @@ LDFLAGS:= ${addprefix -L,${LIB_DIRS}} -pthread
 
 RM:=	rm -rf
 
+COLOR_GREEN := \033[32m
+COLOR_RESET := \033[0m
+
 all: ${NAME}
 
 ${NAME}: ${OBJS}
 	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@
+	echo "${COLOR_GREEN}Compilation completed.${COLOR_RESET}"
 
 ${BUILD_DIR}/%.o: %.c
 	mkdir -p $(dir $@)
@@ -50,9 +54,11 @@ ${BUILD_DIR}/%.o: %.c
 
 clean:
 	${RM} ${BUILD_DIR}
+	echo "${COLOR_GREEN}Objects cleaned.${COLOR_RESET}"
 
 fclean: clean
 	${RM} ${NAME}
+	echo "${COLOR_GREEN}Executables cleaned.${COLOR_RESET}"
 
 re: fclean all
 
