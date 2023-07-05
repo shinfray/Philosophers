@@ -6,9 +6,14 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/05 11:48:04 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/05 12:22:38 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
+################################################################################
+#                                 CONFIG                                       #
+################################################################################
 
 .DELETE_ON_ERROR:
 .SILENT:
@@ -20,6 +25,7 @@ BUILD_DIR:= build
 INC_DIRS:= include
 
 LDLIBS:=
+LIB_DIRS:=
 
 CFLAGS= -std=c17 -Wall -Wextra -Werror -Wpedantic -pedantic-errors -O3
 
@@ -48,24 +54,43 @@ CFLAGS+=	-Wcast-qual \
 			-Wduplicated-branches \
 			-Walloc-zero
 
+ADDITIONAL_CPPFLAGS:= -pthread
+ADDITIONAL_LDFLAGS:= -pthread
+
+################################################################################
+#                                 PROGRAM'S SRCS                               #
+################################################################################
+
 EXT:=	.c
 
-SRCS_FILES:=	main
+MAIN:=	main
 
-SRCS:=	${addprefix ${SRCS_DIR}/,${addsuffix ${EXT},${SRCS_FILES}}}
+SRCS_FILES:=
+
+################################################################################
+#                                 SRC's FORMATING                              #
+################################################################################
+
+SRCS:=	${addprefix ${SRCS_DIR}/,${addsuffix ${EXT},${MAIN} ${SRCS_FILES}}}
 
 OBJS:=	${SRCS:%.c=${BUILD_DIR}/%.o}
 
 DEPS:=	${OBJS:.o=.d}
 
-CPPFLAGS:= ${addprefix -I,${INC_DIRS}} -MMD -MP -pthread
+CPPFLAGS= ${addprefix -I,${INC_DIRS}} -MMD -MP
+CPPFLAGS+= ${ADDITIONAL_CPPFLAGS}
 
-LDFLAGS:= ${addprefix -L,${LIB_DIRS}} -pthread
+LDFLAGS= ${addprefix -L,${LIB_DIRS}}
+LDFLAGS+= ${ADDITIONAL_LDFLAGS}
 
 RM:=	rm -rf
 
 COLOR_GREEN := \033[32m
 COLOR_RESET := \033[0m
+
+################################################################################
+#                                 Makefile rules                               #
+################################################################################
 
 all: ${NAME}
 
