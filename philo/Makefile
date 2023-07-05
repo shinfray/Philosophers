@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/04 11:08:24 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/05 11:48:04 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,32 @@ INC_DIRS:= include
 
 LDLIBS:=
 
-CFLAGS:= -Wall -Wextra -Werror -Wpedantic
+CFLAGS= -std=c17 -Wall -Wextra -Werror -Wpedantic -pedantic-errors -O3
+
+CFLAGS+=	-Wcast-qual \
+			-Wconversion \
+			-Wdouble-promotion \
+			-Wfloat-equal \
+			-Wformat=2 \
+			-Winit-self \
+			-fno-common \
+			-Wpadded \
+			-Wshadow \
+			-Wundef \
+			-Wunused-macros \
+			-Wwrite-strings \
+			-Wmissing-prototypes \
+			-Wmissing-declarations \
+			-Wstrict-prototypes
+
+#			gcc flags only
+#			-Wformat-overflow \
+			-Wformat-truncation \
+			-Wlogical-op \
+			-Wformat-signedness \
+			-Wduplicated-cond \
+			-Wduplicated-branches \
+			-Walloc-zero
 
 EXT:=	.c
 

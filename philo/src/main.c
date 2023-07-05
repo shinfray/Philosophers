@@ -6,11 +6,13 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:47:20 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/03 17:31:19 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:42:44 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*routine(void *arg);
 
 int	mail = 0;
 
