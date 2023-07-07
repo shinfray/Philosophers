@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/05 12:22:38 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/07 17:51:47 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ CFLAGS+=	-Wcast-qual \
 			-Wformat=2 \
 			-Winit-self \
 			-fno-common \
-			-Wpadded \
 			-Wshadow \
 			-Wundef \
 			-Wunused-macros \
@@ -44,6 +43,7 @@ CFLAGS+=	-Wcast-qual \
 			-Wmissing-prototypes \
 			-Wmissing-declarations \
 			-Wstrict-prototypes
+#			-Wpadded \
 
 #			gcc flags only
 #			-Wformat-overflow \
