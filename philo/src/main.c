@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:28:59 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/08 11:34:20 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/08 12:19:10 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	*routine(void *arg);
 
 void	*routine(void *arg)
 {
-	(void)arg;
+	t_philo	*philo;	
+
+	philo = (t_philo *)arg;
+	printf("%zu %d %d %d\n", philo->total_philosophers, philo->time_to_die, philo->time_to_eat, philo->time_to_sleep);
 	return (NULL);
 }
 
