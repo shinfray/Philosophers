@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/10 17:45:31 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:12:44 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@
 # define FORK "has taken a fork"
 # define DEAD "died"
 
+typedef struct timeval t_timeval;
+
 typedef struct philo
 {
-	struct timeval	launch_time;
-	struct timeval	now;
+	t_timeval		launch_time;
+	t_timeval		now;
 	pthread_t		*philosophers;
 	pthread_mutex_t	*forks;
 	size_t			total_philosophers;
@@ -41,6 +43,7 @@ typedef struct philo
 	uintmax_t		meal_goal;	
 	bool			infinite_mode;
 	pthread_mutex_t	print_ts;
+	bool			exit_status;
 }				t_philo;
 
 /* ************************************************************************** */

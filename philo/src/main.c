@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:28:59 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/10 17:50:29 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:16:45 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*routine(void *arg)
 void	ft_print_ts(t_philo *philo, const char *state)
 {
 	uintmax_t	timestamp;
-	struct timeval	now;
+	t_timeval	now;
 
 	pthread_mutex_lock(&philo->print_ts);
 	gettimeofday(&now, NULL);
@@ -42,14 +42,11 @@ int	main(int argc, char **argv)
 
 	if (ft_check_arguments(argc, argv, &s_philo) == -1 \
 		|| ft_initialize(&s_philo) == -1)
-		return (1);	
+		return (EXIT_FAILURE);	
 	if (gettimeofday(&s_philo.launch_time, NULL) == -1 \
 		|| ft_launch_all_threads(&s_philo) == -1 \
 		|| ft_join_all_threads(&s_philo) == -1)
-	{
-		ft_clean(&s_philo);
-		return (-1);
-	}
+		s_philo.exit_status = EXIT_FAILURE;
 	ft_clean(&s_philo);
-	return (0);
+	return (s_philo.exit_status);
 }
