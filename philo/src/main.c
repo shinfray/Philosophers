@@ -6,21 +6,34 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:28:59 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/08 12:19:10 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:50:29 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void	*routine(void *arg);
+void	ft_print_ts(t_philo *philo, const char *state);
 
 void	*routine(void *arg)
 {
-	t_philo	*philo;	
-
-	philo = (t_philo *)arg;
-	printf("%zu %d %d %d\n", philo->total_philosophers, philo->time_to_die, philo->time_to_eat, philo->time_to_sleep);
+	usleep(3 * 1000000);
+	ft_print_ts((t_philo *)arg, DEAD);
 	return (NULL);
+}
+
+void	ft_print_ts(t_philo *philo, const char *state)
+{
+	uintmax_t	timestamp;
+	struct timeval	now;
+
+	pthread_mutex_lock(&philo->print_ts);
+	gettimeofday(&now, NULL);
+	timestamp = (uintmax_t)(now.tv_sec * 1000 + now.tv_usec / 1000) \
+				- (uintmax_t)(philo->launch_time.tv_sec * 1000 \
+				+ philo->launch_time.tv_usec / 1000);
+	printf("%ju x %s\n", timestamp, state);
+	pthread_mutex_unlock(&philo->print_ts);
 }
 
 int	main(int argc, char **argv)
@@ -29,8 +42,9 @@ int	main(int argc, char **argv)
 
 	if (ft_check_arguments(argc, argv, &s_philo) == -1 \
 		|| ft_initialize(&s_philo) == -1)
-		return (1);
-	if (ft_launch_all_threads(&s_philo) == -1 \
+		return (1);	
+	if (gettimeofday(&s_philo.launch_time, NULL) == -1 \
+		|| ft_launch_all_threads(&s_philo) == -1 \
 		|| ft_join_all_threads(&s_philo) == -1)
 	{
 		ft_clean(&s_philo);
