@@ -6,13 +6,14 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/11 17:26:16 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:33:28 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <sys/time.h>
 # include <inttypes.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -20,7 +21,6 @@
 # include <stdbool.h>
 # include <string.h>
 # include <unistd.h>
-# include <sys/time.h>
 
 # define EAT "is eating"
 # define SLEEP "is sleeping"
