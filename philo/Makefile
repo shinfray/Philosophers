@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/08 11:33:37 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/11 17:07:57 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ COLOR_RESET := \033[0m
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@
+	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@ -fsanitize=address
 	echo "${COLOR_GREEN}Compilation completed.${COLOR_RESET}"
 
 ${BUILD_DIR}/%.o: %.c

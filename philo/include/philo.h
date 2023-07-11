@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/10 18:12:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:26:16 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@
 # define FORK "has taken a fork"
 # define DEAD "died"
 
-typedef struct timeval t_timeval;
+typedef struct timeval	t_timeval;
 
-typedef struct philo
+typedef struct info
 {
 	t_timeval		launch_time;
-	t_timeval		now;
 	pthread_t		*philosophers;
 	pthread_mutex_t	*forks;
 	size_t			total_philosophers;
@@ -44,31 +43,36 @@ typedef struct philo
 	bool			infinite_mode;
 	pthread_mutex_t	print_ts;
 	bool			exit_status;
+}				t_info;
+
+typedef struct philo
+{
+	t_info	*info;
+	size_t	philo_id;
 }				t_philo;
 
 /* ************************************************************************** */
 /*		PARSING                                                               */
 /* ************************************************************************** */
-int		ft_check_arguments(int argc, char **argv, t_philo *philo);
+int		ft_check_arguments(int argc, char **argv, t_info *info);
 
 /* ************************************************************************** */
 /*		INITIALIXATION                                                        */
 /* ************************************************************************** */
-int		ft_initialize(t_philo *philo);
+int		ft_initialize(t_info *info, t_philo **philo);
+void	*ft_calloc(size_t count, size_t size);
 
 /* ************************************************************************** */
 /*		CLEANING                                                              */
 /* ************************************************************************** */
-void	ft_clean(t_philo *philo);
+void	ft_clean(t_philo *philo, t_info *info);
 void	ft_destroy_forks(pthread_mutex_t *forks, size_t n);
-void	ft_free_all(t_philo *philo);
 
 /* ************************************************************************** */
 /*		THREADS                                                               */
 /* ************************************************************************** */
-int		ft_launch_all_threads(t_philo *philo);
-int		ft_join_all_threads(t_philo *philo);
-
+int		ft_launch_all_threads(t_info *info, t_philo *philo);
+int		ft_join_all_threads(t_info *info);
 
 void	*routine(void *arg);
 
