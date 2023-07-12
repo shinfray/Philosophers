@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/11 17:33:28 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:16:58 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 
 typedef struct timeval	t_timeval;
 
+// enum e_status
+// {
+//     eating,
+//     sleeping
+//     thinking,
+// };
+
 typedef struct info
 {
 	t_timeval		launch_time;
@@ -47,8 +54,9 @@ typedef struct info
 
 typedef struct philo
 {
-	t_info	*info;
-	size_t	philo_id;
+	t_info		*info;
+	size_t		philo_id;
+	uintmax_t	last_meal;
 }				t_philo;
 
 /* ************************************************************************** */
