@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:28:59 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/12 13:25:18 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:08:41 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,51 @@ void	*routine(void *arg);
 void	ft_print_ts(t_philo *philo, const char *state);
 uintmax_t	ft_convert_tod(t_timeval timeval);
 uintmax_t	ft_get_ts(t_timeval start, t_timeval end);
+void	ft_attempt_to_eat_odd(t_philo *philo);
+void	ft_attempt_to_eat_even(t_philo *philo);
+
+void	ft_attempt_to_eat_odd(t_philo *philo)
+{
+	pthread_mutex_lock(philo->info->forks + ((philo->philo_id - 1) % philo->info->total_philosophers));
+	ft_print_ts(philo, FORK);
+	pthread_mutex_lock(philo->info->forks + (philo->philo_id % philo->info->total_philosophers));
+	ft_print_ts(philo, FORK);
+	ft_print_ts(philo, EAT);
+	gettimeofday(&philo->last_meal, NULL);
+	usleep((useconds_t)(philo->info->time_to_eat * 1000));
+	pthread_mutex_unlock(philo->info->forks + ((philo->philo_id - 1) % philo->info->total_philosophers));
+	pthread_mutex_unlock(philo->info->forks + (philo->philo_id % philo->info->total_philosophers));
+}
+
+void	ft_attempt_to_eat_even(t_philo *philo)
+{
+	pthread_mutex_lock(philo->info->forks + (philo->philo_id % philo->info->total_philosophers));
+	ft_print_ts(philo, FORK);
+	pthread_mutex_lock(philo->info->forks + ((philo->philo_id - 1) % philo->info->total_philosophers));
+	ft_print_ts(philo, FORK);
+	ft_print_ts(philo, EAT);
+	gettimeofday(&philo->last_meal, NULL);
+	usleep((useconds_t)(philo->info->time_to_eat * 1000));
+	pthread_mutex_unlock(philo->info->forks + (philo->philo_id % philo->info->total_philosophers));
+	pthread_mutex_unlock(philo->info->forks + ((philo->philo_id - 1) % philo->info->total_philosophers));
+}
 
 void	*routine(void *arg)
 {
-	usleep(3 * 1000000);
-	ft_print_ts((t_philo *)arg, DEAD);
+	t_philo	*philo = (t_philo *)arg;
+
+	while (philo->n_meal < philo->info->meal_goal)
+	{
+		ft_print_ts(philo, THINK);
+		if ((philo->philo_id & 1) == 1)
+			ft_attempt_to_eat_odd(philo);
+		else
+			ft_attempt_to_eat_even(philo);
+		if (philo->info->infinite_mode == false)
+			++philo->n_meal;
+		ft_print_ts(philo, SLEEP);
+		usleep((useconds_t)(philo->info->time_to_sleep * 1000));
+	}
 	return (NULL);
 }
 
