@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/13 21:09:51 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:44:53 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,26 @@
 # define THINK "is thinking"
 # define FORK "has taken a fork"
 # define DEAD "died"
+# define HUNGRY 0
+# define SATIATED 1
 
 typedef struct timeval	t_timeval;
 
 typedef struct info
 {
-	t_timeval		launch_time;
-	pthread_t		*philosophers;
+	size_t			total_philos;
+	size_t			hungry_philos;
+	pthread_t		*philos_tid;
 	pthread_mutex_t	*forks;
-	size_t			total_philosophers;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	hungry_mutex;
+	t_timeval		launch_time;
 	uintmax_t		time_to_die;
 	uintmax_t		time_to_eat;	
 	uintmax_t		time_to_sleep;	
 	uintmax_t		meal_goal;	
+	bool			is_a_dead;
 	bool			infinite_mode;
-	pthread_mutex_t	print_ts;
 	bool			exit_status;
 }				t_info;
 
@@ -56,26 +61,43 @@ typedef struct philo
 /* ************************************************************************** */
 /*		PARSING                                                               */
 /* ************************************************************************** */
-int		ft_check_arguments(int argc, char **argv, t_info *info);
+int			ft_check_arguments(int argc, char **argv, t_info *info);
 
 /* ************************************************************************** */
 /*		INITIALIXATION                                                        */
 /* ************************************************************************** */
-int		ft_initialize(t_info *info, t_philo **philo);
-void	*ft_calloc(size_t count, size_t size);
+int			ft_initialize(t_info *info, t_philo **philo);
+void		*ft_calloc(size_t count, size_t size);
 
 /* ************************************************************************** */
 /*		CLEANING                                                              */
 /* ************************************************************************** */
-void	ft_clean(t_philo *philo, t_info *info);
-void	ft_destroy_forks(pthread_mutex_t *forks, size_t n);
+void		ft_clean(t_philo *philo, t_info *info);
+void		ft_destroy_forks(pthread_mutex_t *forks, size_t n);
 
 /* ************************************************************************** */
 /*		THREADS                                                               */
 /* ************************************************************************** */
-int		ft_launch_all_threads(t_info *info, t_philo *philo);
-int		ft_join_all_threads(t_info *info);
+int			ft_launch_all_threads(t_info *info, t_philo *philo);
+int			ft_join_all_threads(t_info *info);
 
-void	*routine(void *arg);
+/* ************************************************************************** */
+/*		ACTIONS                                                               */
+/* ************************************************************************** */
+bool		ft_eat(t_philo *philo);
+void		ft_sleep(t_philo *philo);
+void		*ft_signal_as_satiated(t_philo *philo);
+
+/* ************************************************************************** */
+/*		SIMULATION                                                            */
+/* ************************************************************************** */
+void		*ft_philo(void *arg);
+bool		ft_is_a_dead(t_philo *philo, t_info *info);
+
+/* ************************************************************************** */
+/*		TIME_UTILS                                                            */
+/* ************************************************************************** */
+void		ft_print_ts(t_philo *philo, const char *state);
+uintmax_t	ft_get_ts(t_timeval start, t_timeval end);
 
 #endif

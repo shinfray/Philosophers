@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/11 17:07:57 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/14 17:46:26 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,13 @@ EXT:=	.c
 
 MAIN:=	main
 
-SRCS_FILES:=	parsing/parse \
-				initialization/initialize \
-				cleaning/clean \
-				threads/threads
+SRCS_FILES:=	parse \
+				initialize \
+				clean \
+				threads \
+				actions \
+				simulation \
+				time_utils
 
 ################################################################################
 #                                 SRC's FORMATING                              #
@@ -98,7 +101,7 @@ COLOR_RESET := \033[0m
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@ -fsanitize=address
+	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@
 	echo "${COLOR_GREEN}Compilation completed.${COLOR_RESET}"
 
 ${BUILD_DIR}/%.o: %.c
