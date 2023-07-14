@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 18:04:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:49:27 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ typedef struct timeval	t_timeval;
 typedef struct info
 {
 	size_t			total_philos;
-	size_t			hungry_philos;
 	pthread_t		*philos_tid;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	hungry_mutex;
 	t_timeval		launch_time;
 	uintmax_t		time_to_die;
 	uintmax_t		time_to_eat;	
 	uintmax_t		time_to_sleep;	
 	uintmax_t		meal_goal;	
-	bool			is_a_dead;
+	_Atomic size_t	hungry_philos_atomic;
+	_Atomic bool	is_a_dead_atomic;
 	bool			infinite_mode;
 	bool			exit_status;
 }				t_info;

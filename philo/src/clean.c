@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:02:00 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 18:15:15 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:45:45 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	ft_free_all(t_philo *philo, t_info *info);
 void	ft_clean(t_philo *philo, t_info *info)
 {
 	pthread_mutex_destroy(&info->print_mutex);
-	pthread_mutex_destroy(&info->hungry_mutex);
 	ft_destroy_forks(info->forks, info->total_philos);
 	ft_free_all(philo, info);
 }

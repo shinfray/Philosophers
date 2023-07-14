@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:19:06 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:49:57 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ bool	ft_eat(t_philo *philo, t_info *info)
 
 void	*ft_signal_as_satiated(t_info *info)
 {
-	pthread_mutex_lock(&info->hungry_mutex);
-	info->hungry_philos--;
-	pthread_mutex_unlock(&info->hungry_mutex);
+	info->hungry_philos_atomic--;
 	return (NULL);
 }
 

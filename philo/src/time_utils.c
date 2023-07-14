@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 18:22:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:48:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_ts(t_philo *philo, const char *state)
 	t_timeval	now;
 
 	info = philo->info;
-	if (info->is_a_dead == true \
+	if (info->is_a_dead_atomic == true \
 		|| info->exit_status == EXIT_FAILURE)
 		return ;
 	pthread_mutex_lock(&info->print_mutex);

@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:02:04 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 17:07:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:48:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_init_mutexes(t_info *info);
 int	ft_initialize(t_info *info, t_philo **philo)
 {
 	info->exit_status = EXIT_SUCCESS;
-	info->is_a_dead = false;
+	info->is_a_dead_atomic = false;
 	if (ft_alloc_all(info, philo) == -1)
 	{
 		write(2, "Error: Failed to allocate memory\n", 33);
@@ -91,11 +91,6 @@ static int	ft_init_mutexes(t_info *info)
 
 	if (pthread_mutex_init(&info->print_mutex, NULL) != 0)
 		return (-1);
-	if (pthread_mutex_init(&info->hungry_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&info->print_mutex);
-		return (-1);
-	}
 	i = 0;
 	while (i < info->total_philos)
 	{
@@ -103,7 +98,6 @@ static int	ft_init_mutexes(t_info *info)
 		{
 			ft_destroy_forks(info->forks, i);
 			pthread_mutex_destroy(&info->print_mutex);
-			pthread_mutex_destroy(&info->hungry_mutex);
 			return (-1);
 		}
 		++i;

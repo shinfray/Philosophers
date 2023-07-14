@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 09:49:21 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:37:06 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:46:40 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_retrieve_arguments(t_info *info, int argc, char **argv)
 	info->total_philos = ft_strtoumax((const char *)argv[1], &err_status);
 	if (err_status != 0)
 		return (-1);
-	info->hungry_philos = info->total_philos;
+	info->hungry_philos_atomic = info->total_philos;
 	info->time_to_die = ft_strtoumax((const char *)argv[2], &err_status);
 	if (err_status != 0)
 		return (-1);
