@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 18:18:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:25:06 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		*ft_philo(void *arg);
 bool		ft_is_a_dead(t_philo *philo, t_info *info);
+static void	*ft_one_philo(t_philo *philo);
 
 void	*ft_philo(void *arg)
 {
@@ -26,6 +27,8 @@ void	*ft_philo(void *arg)
 			&& info->exit_status != EXIT_FAILURE \
 			&& info->is_a_dead != true)
 	{
+		if (info->total_philos == 1)
+			return (ft_one_philo(philo));
 		ft_print_ts(philo, THINK);
 		if (ft_eat(philo, info) == SATIATED)
 			return (ft_signal_as_satiated(info));
@@ -61,4 +64,11 @@ bool	ft_is_a_dead(t_philo *philo, t_info *info)
 		usleep(10);
 	}
 	return (false);
+}
+
+static void	*ft_one_philo(t_philo *philo)
+{
+	ft_print_ts(philo, THINK);
+	ft_print_ts(philo, FORK);
+	return (NULL);
 }

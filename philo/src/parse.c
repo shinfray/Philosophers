@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 09:49:21 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 17:06:26 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:37:06 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ int	ft_check_arguments(int argc, char **argv, t_info *info)
 	if (ft_retrieve_arguments(info, argc, argv) == -1)
 	{
 		write(2, "Error: Arguments not well formated\n", 35);
+		return (-1);
+	}
+	if (info->total_philos == 0)
+	{
+		write(2, "Error: at least one philosopher needed\n", 39);
+		return (-1);
+	}
+	if (argc == 6 && info->meal_goal < 1)
+	{
+		write(2, "Error: at least one meal needed\n", 32);
 		return (-1);
 	}
 	return (0);
