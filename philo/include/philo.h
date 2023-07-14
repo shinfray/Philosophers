@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 17:44:53 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:04:04 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,10 @@ int			ft_initialize(t_info *info, t_philo **philo);
 void		*ft_calloc(size_t count, size_t size);
 
 /* ************************************************************************** */
-/*		CLEANING                                                              */
-/* ************************************************************************** */
-void		ft_clean(t_philo *philo, t_info *info);
-void		ft_destroy_forks(pthread_mutex_t *forks, size_t n);
-
-/* ************************************************************************** */
 /*		THREADS                                                               */
 /* ************************************************************************** */
-int			ft_launch_all_threads(t_info *info, t_philo *philo);
+int			ft_launch_all_threads(t_philo *philo, t_info *info);
 int			ft_join_all_threads(t_info *info);
-
-/* ************************************************************************** */
-/*		ACTIONS                                                               */
-/* ************************************************************************** */
-bool		ft_eat(t_philo *philo);
-void		ft_sleep(t_philo *philo);
-void		*ft_signal_as_satiated(t_philo *philo);
 
 /* ************************************************************************** */
 /*		SIMULATION                                                            */
@@ -95,9 +82,22 @@ void		*ft_philo(void *arg);
 bool		ft_is_a_dead(t_philo *philo, t_info *info);
 
 /* ************************************************************************** */
+/*		ACTIONS                                                               */
+/* ************************************************************************** */
+bool		ft_eat(t_philo *philo, t_info *info);
+void		ft_sleep(t_philo *philo, t_info *info);
+void		*ft_signal_as_satiated(t_info *info);
+
+/* ************************************************************************** */
 /*		TIME_UTILS                                                            */
 /* ************************************************************************** */
 void		ft_print_ts(t_philo *philo, const char *state);
 uintmax_t	ft_get_ts(t_timeval start, t_timeval end);
+
+/* ************************************************************************** */
+/*		CLEANING                                                              */
+/* ************************************************************************** */
+void		ft_clean(t_philo *philo, t_info *info);
+void		ft_destroy_forks(pthread_mutex_t *forks, size_t n);
 
 #endif
