@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 09:49:21 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:46:40 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:54:33 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_arguments(int argc, char **argv, t_info *info)
 		write(2, "Error: Arguments not well formated\n", 35);
 		return (-1);
 	}
-	if (info->total_philos == 0)
+	if (info->total_philos < 1)
 	{
 		write(2, "Error: at least one philosopher needed\n", 39);
 		return (-1);
