@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:48:16 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:40:22 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool	ft_is_a_dead(t_philo *philo, t_info *info)
 		timestamp = ft_get_ts((philo + i)->last_meal, now);
 		if (timestamp >= info->time_to_die)
 		{
+			timestamp = ft_get_ts((philo + i)->info->launch_time, now);
 			pthread_mutex_lock(&info->print_mutex);
 			printf("%ju %zu %s\n", timestamp, philo->philo_id, DEAD);
 			pthread_mutex_unlock(&info->print_mutex);
