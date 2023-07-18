@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 17:51:51 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/19 00:49:45 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	ft_death_checker(t_philo *philo, t_info *info)
 		if (timestamp >= info->time_to_die)
 			return (ft_print_death(philo + i, info, now));
 		i = (i + 1) % info->total_philos;
+		usleep(100);
 	}
 	return (false);
 }
