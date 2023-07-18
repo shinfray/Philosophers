@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 16:51:14 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:02:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info)
 static void	ft_attempt_to_eat_even(t_philo *philo, t_info *info)
 {
 	t_timeval	now;
-	size_t	id;
-	size_t	n;
+	size_t		id;
+	size_t		n;
 
 	id = philo->philo_id;
 	n = philo->info->total_philos;
