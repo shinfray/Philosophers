@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:23:35 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 18:04:35 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:08:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_launch_all_threads(t_philo *philo, t_info *info)
 	i = 0;
 	while (i < n)
 	{
-		philo->last_meal = info->launch_time;
 		if (pthread_create(info->philos_tid + i, NULL, &ft_philo, philo++) != 0)
 			return (-1);
 		++i;

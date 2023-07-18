@@ -6,15 +6,27 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:48:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:44:43 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int					ft_usleep_philo(t_info *info, uintmax_t ms);
 void				ft_print_ts(t_philo *philo, const char *state);
 uintmax_t			ft_get_ts(t_timeval start, t_timeval end);
 static uintmax_t	ft_convert_tod(t_timeval timeval);
+
+int	ft_usleep_philo(t_info *info, uintmax_t ms)
+{
+	while (ms-- > 0)
+	{
+		if (info->is_a_dead_atomic == true)
+			return (-1);
+		usleep(1000);
+	}
+	return (0);
+}
 
 void	ft_print_ts(t_philo *philo, const char *state)
 {
@@ -40,5 +52,5 @@ uintmax_t	ft_get_ts(t_timeval start, t_timeval end)
 
 static uintmax_t	ft_convert_tod(t_timeval timeval)
 {
-	return ((uintmax_t)(timeval.tv_sec * 1000 + timeval.tv_usec / 1000));
+	return ((uintmax_t)((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000)));
 }

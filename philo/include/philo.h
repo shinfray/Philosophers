@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 13:14:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:44:56 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct philo
 {
 	t_info				*info;
 	size_t				philo_id;
-	t_timeval			last_meal;
-	_Atomic uintmax_t	n_meal;
+	_Atomic uintmax_t	last_meal_atomic;
+	_Atomic uintmax_t	n_meal_atomic;
 }				t_philo;
 
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ void		*ft_signal_as_satiated(t_info *info);
 /* ************************************************************************** */
 /*		TIME_UTILS                                                            */
 /* ************************************************************************** */
+int			ft_usleep_philo(t_info *info, uintmax_t ms);
 void		ft_print_ts(t_philo *philo, const char *state);
 uintmax_t	ft_get_ts(t_timeval start, t_timeval end);
 
