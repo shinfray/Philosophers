@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 17:02:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:51:27 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info)
 	ft_print_ts(philo, FORK);
 	ft_print_ts(philo, EAT);
 	gettimeofday(&now, NULL);
-	philo->last_meal_atomic = ft_get_ts(info->launch_time, now);
+	philo->last_meal_atomic = ft_get_ts(&info->launch_time, &now);
 	ft_usleep_philo(info, info->time_to_eat);
 	pthread_mutex_unlock(info->forks + ((id - 1) % n));
 	pthread_mutex_unlock(info->forks + (id % n));
@@ -77,7 +77,7 @@ static void	ft_attempt_to_eat_even(t_philo *philo, t_info *info)
 	ft_print_ts(philo, FORK);
 	ft_print_ts(philo, EAT);
 	gettimeofday(&now, NULL);
-	philo->last_meal_atomic = ft_get_ts(info->launch_time, now);
+	philo->last_meal_atomic = ft_get_ts(&info->launch_time, &now);
 	ft_usleep_philo(info, info->time_to_eat);
 	pthread_mutex_unlock(info->forks + (id % n));
 	pthread_mutex_unlock(info->forks + ((id - 1) % n));

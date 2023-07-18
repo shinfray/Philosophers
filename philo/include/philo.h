@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 15:44:56 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:50:57 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int			ft_join_all_threads(t_info *info);
 /*		SIMULATION                                                            */
 /* ************************************************************************** */
 void		*ft_philo(void *arg);
-bool		ft_is_a_dead(t_philo *philo, t_info *info);
+bool		ft_death_checker(t_philo *philo, t_info *info);
 
 /* ************************************************************************** */
 /*		ACTIONS                                                               */
@@ -92,7 +92,7 @@ void		*ft_signal_as_satiated(t_info *info);
 /* ************************************************************************** */
 int			ft_usleep_philo(t_info *info, uintmax_t ms);
 void		ft_print_ts(t_philo *philo, const char *state);
-uintmax_t	ft_get_ts(t_timeval start, t_timeval end);
+uintmax_t	ft_get_ts(t_timeval *start, t_timeval *end);
 
 /* ************************************************************************** */
 /*		CLEANING                                                              */

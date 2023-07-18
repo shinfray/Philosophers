@@ -6,14 +6,15 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 16:58:32 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:51:51 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void		*ft_philo(void *arg);
-bool		ft_is_a_dead(t_philo *philo, t_info *info);
+bool		ft_death_checker(t_philo *philo, t_info *info);
+static bool	ft_print_death(t_philo *philo, t_info *info, t_timeval now);
 static void	*ft_one_philo(t_philo *philo);
 
 void	*ft_philo(void *arg)
@@ -37,7 +38,7 @@ void	*ft_philo(void *arg)
 	return (NULL);
 }
 
-bool	ft_is_a_dead(t_philo *philo, t_info *info)
+bool	ft_death_checker(t_philo *philo, t_info *info)
 {
 	size_t		i;
 	t_timeval	now;
@@ -54,18 +55,23 @@ bool	ft_is_a_dead(t_philo *philo, t_info *info)
 		}
 		last_meal = (philo + i)->last_meal_atomic;
 		gettimeofday(&now, NULL);
-		timestamp = ft_get_ts(info->launch_time, now) - last_meal;
+		timestamp = ft_get_ts(&info->launch_time, &now) - last_meal;
 		if (timestamp >= info->time_to_die)
-		{
-			timestamp = ft_get_ts((philo + i)->info->launch_time, now);
-			pthread_mutex_lock(&info->print_mutex);
-			printf("%ju %zu %s\n", timestamp, (philo + i)->philo_id, DEAD);
-			pthread_mutex_unlock(&info->print_mutex);
-			return (true);
-		}
+			return (ft_print_death(philo + i, info, now));
 		i = (i + 1) % info->total_philos;
 	}
 	return (false);
+}
+
+static bool	ft_print_death(t_philo *philo, t_info *info, t_timeval now)
+{
+	uintmax_t	timestamp;
+
+	timestamp = ft_get_ts(&info->launch_time, &now);
+	pthread_mutex_lock(&info->print_mutex);
+	printf("%ju %zu %s\n", timestamp, philo->philo_id, DEAD);
+	pthread_mutex_unlock(&info->print_mutex);
+	return (true);
 }
 
 static void	*ft_one_philo(t_philo *philo)
