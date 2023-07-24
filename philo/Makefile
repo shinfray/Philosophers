@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/14 17:46:26 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/24 11:42:54 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,11 +79,14 @@ SRCS_FILES:=	parse \
 
 SRCS:=	${addprefix ${SRCS_DIR}/,${addsuffix ${EXT},${MAIN} ${SRCS_FILES}}}
 
-OBJS:=	${SRCS:%.c=${BUILD_DIR}/%.o}
 
-DEPS:=	${OBJS:.o=.d}
+OBJS_DIR:= ${BUILD_DIR}/objs
+OBJS:=	${SRCS:${SRCS_DIR}/%.c=${OBJS_DIR}/%.o}
 
-CPPFLAGS= ${addprefix -I,${INC_DIRS}} -MMD -MP
+DEPS_DIR:= ${BUILD_DIR}/deps
+DEPS:=	${OBJS:${OBJS_DIR}/%.o=${DEPS_DIR}/%.d}
+
+CPPFLAGS= ${addprefix -I,${INC_DIRS}} -MMD -MP -MF ${@:${OBJS_DIR}/%.o=${DEPS_DIR}/%.d}
 CPPFLAGS+= ${ADDITIONAL_CPPFLAGS}
 
 LDFLAGS= ${addprefix -L,${LIB_DIRS}}
@@ -104,8 +107,9 @@ ${NAME}: ${OBJS}
 	${CC} ${LDFLAGS} ${OBJS} ${LDLIBS} -o $@
 	echo "${COLOR_GREEN}Compilation completed.${COLOR_RESET}"
 
-${BUILD_DIR}/%.o: %.c
+${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	mkdir -p $(dir $@)
+	mkdir -p ${DEPS_DIR}
 	${CC} ${CPPFLAGS} ${CFLAGS} -c $< -o $@
 
 clean:
