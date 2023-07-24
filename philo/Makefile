@@ -6,7 +6,7 @@
 #    By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 14:46:08 by shinfray          #+#    #+#              #
-#    Updated: 2023/07/24 11:42:54 by shinfray         ###   ########.fr        #
+#    Updated: 2023/07/24 14:13:36 by shinfray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,8 +108,8 @@ ${NAME}: ${OBJS}
 	echo "${COLOR_GREEN}Compilation completed.${COLOR_RESET}"
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
-	mkdir -p $(dir $@)
-	mkdir -p ${DEPS_DIR}
+	mkdir -p ${dir $@}
+	mkdir -p ${dir ${@:${OBJS_DIR}/%.o=${DEPS_DIR}/%.d}}
 	${CC} ${CPPFLAGS} ${CFLAGS} -c $< -o $@
 
 clean:
