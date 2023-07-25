@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/25 15:14:08 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:26:49 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ typedef struct philo
 	_Atomic uintmax_t	last_meal_atomic;
 	_Atomic uintmax_t	n_meal_atomic;
 }				t_philo;
+
+typedef struct forks
+{
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
+}				t_forks;
 
 /* ************************************************************************** */
 /*		PARSING                                                               */

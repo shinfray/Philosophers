@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/25 14:50:24 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:57:33 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_usleep_philo(t_info *info, uintmax_t ms)
 	gettimeofday(&start, NULL);
 	while (ts <= ms)
 	{
-		if (info->is_a_dead_atomic == true)
+		if (info->is_a_dead_atomic == true || info->hungry_philos_atomic == 0)
 			return (-1);
 		usleep(50);
 		gettimeofday(&now, NULL);
@@ -42,7 +42,7 @@ void	ft_print_ts(t_philo *philo, const char *state)
 	uintmax_t	timestamp;
 
 	info = philo->info;
-	if (info->is_a_dead_atomic == true \
+	if (info->hungry_philos_atomic == 0 || info->is_a_dead_atomic == true \
 		|| info->exit_status == EXIT_FAILURE)
 		return ;
 	pthread_mutex_lock(&info->print_mutex);

@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/25 15:15:51 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:04:42 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	*ft_philo(void *arg)
 		return (ft_one_philo(philo));
 	if ((info->total_philos & 1) == 1 && (philo->philo_id & 1) == 1)
 		ft_usleep_philo(info, 10);
-	while (info->exit_status != EXIT_FAILURE && info->is_a_dead_atomic != true)
+	while (info->exit_status != EXIT_FAILURE && info->is_a_dead_atomic != true \
+			&& info->hungry_philos_atomic > 0)
 	{
 		ft_print_ts(philo, THINK);
 		ft_eat(philo, info);
