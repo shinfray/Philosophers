@@ -6,14 +6,14 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:02:04 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:48:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:13:22 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int			ft_initialize(t_info *info, t_philo **philo);
-void		*ft_calloc(size_t count, size_t size);
+static void	*ft_calloc(size_t count, size_t size);
 static int	ft_alloc_all(t_info *info, t_philo **philo);
 static void	ft_set_philo_info(t_info *info, t_philo **philo);
 static int	ft_init_mutexes(t_info *info);
@@ -37,7 +37,7 @@ int	ft_initialize(t_info *info, t_philo **philo)
 	return (0);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+static void	*ft_calloc(size_t count, size_t size)
 {
 	const size_t	f_size = size * count;
 	void			*ptr;

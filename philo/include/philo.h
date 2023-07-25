@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 17:50:57 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:14:08 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # define THINK "is thinking"
 # define FORK "has taken a fork"
 # define DEAD "died"
-# define HUNGRY 0
-# define SATIATED 1
 
 typedef struct timeval	t_timeval;
 
@@ -66,7 +64,6 @@ int			ft_check_arguments(int argc, char **argv, t_info *info);
 /*		INITIALIXATION                                                        */
 /* ************************************************************************** */
 int			ft_initialize(t_info *info, t_philo **philo);
-void		*ft_calloc(size_t count, size_t size);
 
 /* ************************************************************************** */
 /*		THREADS                                                               */
@@ -83,16 +80,15 @@ bool		ft_death_checker(t_philo *philo, t_info *info);
 /* ************************************************************************** */
 /*		ACTIONS                                                               */
 /* ************************************************************************** */
-bool		ft_eat(t_philo *philo, t_info *info);
+void		ft_eat(t_philo *philo, t_info *info);
 void		ft_sleep(t_philo *philo, t_info *info);
-void		*ft_signal_as_satiated(t_info *info);
 
 /* ************************************************************************** */
 /*		TIME_UTILS                                                            */
 /* ************************************************************************** */
 int			ft_usleep_philo(t_info *info, uintmax_t ms);
 void		ft_print_ts(t_philo *philo, const char *state);
-uintmax_t	ft_get_ts(t_timeval *start, t_timeval *end);
+uintmax_t	ft_get_ts(t_timeval *start);
 
 /* ************************************************************************** */
 /*		CLEANING                                                              */

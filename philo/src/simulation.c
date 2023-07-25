@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/24 14:24:30 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:15:51 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		*ft_philo(void *arg);
 bool		ft_death_checker(t_philo *philo, t_info *info);
-static bool	ft_print_death(t_philo *philo, t_info *info, t_timeval now);
+static bool	ft_print_death(t_philo *philo, t_info *info);
 static void	*ft_one_philo(t_philo *philo);
 
 void	*ft_philo(void *arg)
@@ -24,15 +24,14 @@ void	*ft_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	info = philo->info;
-	while (philo->n_meal_atomic < info->meal_goal \
-			&& info->exit_status != EXIT_FAILURE \
-			&& info->is_a_dead_atomic != true)
+	if (info->total_philos == 1)
+		return (ft_one_philo(philo));
+	if ((info->total_philos & 1) == 1 && (philo->philo_id & 1) == 1)
+		ft_usleep_philo(info, 10);
+	while (info->exit_status != EXIT_FAILURE && info->is_a_dead_atomic != true)
 	{
-		if (info->total_philos == 1)
-			return (ft_one_philo(philo));
 		ft_print_ts(philo, THINK);
-		if (ft_eat(philo, info) == SATIATED)
-			return (ft_signal_as_satiated(info));
+		ft_eat(philo, info);
 		ft_sleep(philo, info);
 	}
 	return (NULL);
@@ -41,34 +40,26 @@ void	*ft_philo(void *arg)
 bool	ft_death_checker(t_philo *philo, t_info *info)
 {
 	size_t		i;
-	t_timeval	now;
 	uintmax_t	timestamp;
 	uintmax_t	last_meal;
 
 	i = 0;
 	while (info->hungry_philos_atomic > 0)
 	{
-		if ((philo + i)->n_meal_atomic == info->meal_goal)
-		{
-			i = (i + 1) % info->total_philos;
-			continue ;
-		}
 		last_meal = (philo + i)->last_meal_atomic;
-		gettimeofday(&now, NULL);
-		timestamp = ft_get_ts(&info->launch_time, &now) - last_meal;
+		timestamp = ft_get_ts(&info->launch_time) - last_meal;
 		if (timestamp >= info->time_to_die)
-			return (ft_print_death(philo + i, info, now));
+			return (ft_print_death(philo + i, info));
 		i = (i + 1) % info->total_philos;
-		usleep(100);
 	}
 	return (false);
 }
 
-static bool	ft_print_death(t_philo *philo, t_info *info, t_timeval now)
+static bool	ft_print_death(t_philo *philo, t_info *info)
 {
 	uintmax_t	timestamp;
 
-	timestamp = ft_get_ts(&info->launch_time, &now);
+	timestamp = ft_get_ts(&info->launch_time);
 	pthread_mutex_lock(&info->print_mutex);
 	printf("%ju %zu %s\n", timestamp, philo->philo_id, DEAD);
 	pthread_mutex_unlock(&info->print_mutex);

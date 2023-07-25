@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 11:28:59 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 17:47:39 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:36:02 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	main(int argc, char **argv)
 	if (ft_check_arguments(argc, argv, &s_info) == -1 \
 		|| ft_initialize(&s_info, &philo) == -1)
 		return (EXIT_FAILURE);
-	if (gettimeofday(&s_info.launch_time, NULL) == -1 \
-		|| ft_launch_all_threads(philo, &s_info) == -1)
+	if (ft_launch_all_threads(philo, &s_info) == -1)
 		s_info.exit_status = EXIT_FAILURE;
 	if (s_info.exit_status != EXIT_FAILURE)
 		s_info.is_a_dead_atomic = ft_death_checker(philo, &s_info);

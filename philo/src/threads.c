@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:23:35 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 15:08:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:35:53 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_launch_all_threads(t_philo *philo, t_info *info)
 	size_t			i;
 
 	i = 0;
+	if (gettimeofday(&info->launch_time, NULL) == -1)
+		return (-1);
 	while (i < n)
 	{
 		if (pthread_create(info->philos_tid + i, NULL, &ft_philo, philo++) != 0)
