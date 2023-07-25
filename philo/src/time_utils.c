@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/24 23:22:36 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:55:00 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,14 @@ void				ft_print_ts(t_philo *philo, const char *state);
 uintmax_t			ft_get_ts(t_timeval *start, t_timeval *end);
 static uintmax_t	ft_convert_tod(t_timeval *timeval);
 
-//int	ft_usleep_philo(t_info *info, uintmax_t ms)
-//{
-//	while (ms-- > 0)
-//	{
-//		if (info->is_a_dead_atomic == true)
-//			return (-1);
-//		usleep(1000);
-//	}
-//	return (0);
-//}
-
 int	ft_usleep_philo(t_info *info, uintmax_t ms)
 {
 	uintmax_t	ts;
 	t_timeval	start;
 	t_timeval	now;
 
-	gettimeofday(&start, NULL);
 	ts = 0;
+	gettimeofday(&start, NULL);
 	while (ts <= ms)
 	{
 		if (info->is_a_dead_atomic == true)

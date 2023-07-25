@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/18 17:51:27 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:40:57 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 bool		ft_eat(t_philo *philo, t_info *info);
 void		ft_sleep(t_philo *philo, t_info *info);
 void		*ft_signal_as_satiated(t_info *info);
-static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info);
 static void	ft_attempt_to_eat_even(t_philo *philo, t_info *info);
+static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info);
 
 bool	ft_eat(t_philo *philo, t_info *info)
 {
-	if ((philo->philo_id & 1) == 1)
-		ft_attempt_to_eat_odd(philo, info);
-	else
+	if ((info->total_philos & 1) == 0)
 		ft_attempt_to_eat_even(philo, info);
+	else
+		ft_attempt_to_eat_odd(philo, info);
 	if (info->infinite_mode == false)
 		++philo->n_meal_atomic;
 	if (philo->n_meal_atomic == info->meal_goal)
@@ -43,42 +43,66 @@ void	ft_sleep(t_philo *philo, t_info *info)
 	ft_usleep_philo(info, info->time_to_sleep);
 }
 
-static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info)
-{
-	t_timeval	now;
-	size_t		id;
-	size_t		n;
-
-	id = philo->philo_id;
-	n = info->total_philos;
-	pthread_mutex_lock(info->forks + ((id - 1) % n));
-	ft_print_ts(philo, FORK);
-	pthread_mutex_lock(info->forks + (id % n));
-	ft_print_ts(philo, FORK);
-	ft_print_ts(philo, EAT);
-	gettimeofday(&now, NULL);
-	philo->last_meal_atomic = ft_get_ts(&info->launch_time, &now);
-	ft_usleep_philo(info, info->time_to_eat);
-	pthread_mutex_unlock(info->forks + ((id - 1) % n));
-	pthread_mutex_unlock(info->forks + (id % n));
-}
-
 static void	ft_attempt_to_eat_even(t_philo *philo, t_info *info)
 {
-	t_timeval	now;
-	size_t		id;
-	size_t		n;
+	t_timeval		now;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
 
-	id = philo->philo_id;
-	n = philo->info->total_philos;
-	pthread_mutex_lock(info->forks + (id % n));
+	left = info->forks + (philo->philo_id % info->total_philos);
+	right = info->forks + ((philo->philo_id - 1) % info->total_philos);
+	if ((philo->philo_id & 1) == 1)
+	{
+		first = right;
+		second = left;
+	}
+	else
+	{
+		first = left;
+		second = right;
+	}
+	pthread_mutex_lock(first);
 	ft_print_ts(philo, FORK);
-	pthread_mutex_lock(info->forks + ((id - 1) % n));
+	pthread_mutex_lock(second);
 	ft_print_ts(philo, FORK);
 	ft_print_ts(philo, EAT);
 	gettimeofday(&now, NULL);
 	philo->last_meal_atomic = ft_get_ts(&info->launch_time, &now);
 	ft_usleep_philo(info, info->time_to_eat);
-	pthread_mutex_unlock(info->forks + (id % n));
-	pthread_mutex_unlock(info->forks + ((id - 1) % n));
+	pthread_mutex_unlock(first);
+	pthread_mutex_unlock(second);
+}
+
+static void	ft_attempt_to_eat_odd(t_philo *philo, t_info *info)
+{
+	t_timeval		now;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
+
+	left = info->forks + (philo->philo_id % info->total_philos);
+	right = info->forks + ((philo->philo_id - 1) % info->total_philos);
+	if ((philo->philo_id & 1) == 1)
+	{
+		first = right;
+		second = left;
+	}
+	else
+	{
+		first = left;
+		second = right;
+	}
+	pthread_mutex_lock(first);
+	ft_print_ts(philo, FORK);
+	pthread_mutex_lock(second);
+	ft_print_ts(philo, FORK);
+	ft_print_ts(philo, EAT);
+	gettimeofday(&now, NULL);
+	philo->last_meal_atomic = ft_get_ts(&info->launch_time, &now);
+	ft_usleep_philo(info, info->time_to_eat);
+	pthread_mutex_unlock(first);
+	pthread_mutex_unlock(second);
 }
