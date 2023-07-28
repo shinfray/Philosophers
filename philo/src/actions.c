@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/26 00:34:30 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 00:06:04 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_eat(t_philo *philo, t_info *info)
 	ft_attempt_to_eat(philo, info);
 	if (info->infinite_mode == false)
 		++philo->n_meal_atomic;
-	if (info->infinite_mode != 1 && philo->n_meal_atomic == info->meal_goal)
+	if (info->infinite_mode == false && philo->n_meal_atomic == info->meal_goal)
 		info->hungry_philos_atomic--;
 }
 

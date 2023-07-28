@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:02:04 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/25 15:13:22 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 00:02:44 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_init_mutexes(t_info *info);
 int	ft_initialize(t_info *info, t_philo **philo)
 {
 	info->exit_status = EXIT_SUCCESS;
-	info->is_a_dead_atomic = false;
+	info->dead_philo_index = -1;
 	if (ft_alloc_all(info, philo) == -1)
 	{
 		write(2, "Error: Failed to allocate memory\n", 33);

@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/26 00:26:49 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 00:11:04 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct info
 	uintmax_t		time_to_sleep;	
 	uintmax_t		meal_goal;	
 	_Atomic size_t	hungry_philos_atomic;
-	_Atomic bool	is_a_dead_atomic;
+	_Atomic ssize_t	dead_philo_index;
 	bool			infinite_mode;
 	bool			exit_status;
 }				t_info;
@@ -83,7 +83,8 @@ int			ft_join_all_threads(t_info *info);
 /*		SIMULATION                                                            */
 /* ************************************************************************** */
 void		*ft_philo(void *arg);
-bool		ft_death_checker(t_philo *philo, t_info *info);
+ssize_t		ft_death_checker(t_philo *philo, t_info *info);
+void		ft_print_death(t_philo *philo, t_info *info);
 
 /* ************************************************************************** */
 /*		ACTIONS                                                               */
