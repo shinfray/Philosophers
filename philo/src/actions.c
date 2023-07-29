@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:34:41 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 00:06:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 11:10:00 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	ft_forks_order(t_forks *forks, t_philo *philo, t_info *info);
 
 void	ft_eat(t_philo *philo, t_info *info)
 {
+	if (info->dead_philo_index >= 0)
+		return ;
 	ft_attempt_to_eat(philo, info);
 	if (info->infinite_mode == false)
 		++philo->n_meal_atomic;
@@ -28,6 +30,8 @@ void	ft_eat(t_philo *philo, t_info *info)
 
 void	ft_sleep(t_philo *philo, t_info *info)
 {
+	if (info->dead_philo_index >= 0)
+		return ;
 	ft_print_ts(philo, SLEEP);
 	ft_usleep_philo(info, info->time_to_sleep);
 }

@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 00:04:34 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 11:37:06 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	ft_print_ts(t_philo *philo, const char *state)
 	uintmax_t	timestamp;
 
 	info = philo->info;
-	if (info->hungry_philos_atomic == 0 || info->dead_philo_index >= 0 \
-		|| info->exit_status == EXIT_FAILURE)
-		return ;
 	pthread_mutex_lock(&info->print_mutex);
 	timestamp = ft_get_ts(&info->launch_time);
-	printf("%ju %zu %s\n", timestamp, philo->philo_id, state);
+	if (info->hungry_philos_atomic == 0 || info->dead_philo_index < 0 \
+		|| info->exit_status != EXIT_FAILURE)
+		printf("%ju %zu %s\n", timestamp, philo->philo_id, state);
 	pthread_mutex_unlock(&info->print_mutex);
 }
 
