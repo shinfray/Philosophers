@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 11:57:10 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:20:23 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_usleep_philo(t_info *info, uintmax_t ms)
 	{
 		if (info->dead_philo_index >= 0 || info->hungry_philos_atomic == 0)
 			return (-1);
-		usleep(50);
+		usleep(200);
 		gettimeofday(&now, NULL);
 		ts = ft_get_ts(&start);
 	}

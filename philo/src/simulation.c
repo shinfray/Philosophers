@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 12:23:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:22:17 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	*ft_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	info = philo->info;
+	philo->left_fork = info->forks + (philo->philo_id % info->total_philos);
+	philo->right_fork = info->forks + ((philo->philo_id - 1) % info->total_philos);
 	if (info->total_philos == 1)
 		return (ft_one_philo(philo));
-	if ((info->total_philos & 1) == 1 && (philo->philo_id & 1) == 0)
-		ft_usleep_philo(info, 5);
 	while (info->exit_status != EXIT_FAILURE && info->dead_philo_index < 0 \
 			&& info->hungry_philos_atomic > 0)
 	{
@@ -52,6 +52,7 @@ ssize_t	ft_death_checker(t_philo *philo, t_info *info)
 		if (timestamp >= info->time_to_die)
 			return (i);
 		i = (i + 1) % (ssize_t)info->total_philos;
+		usleep(100);
 	}
 	return (-1);
 }
