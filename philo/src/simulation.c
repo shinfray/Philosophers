@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 00:13:00 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 12:11:06 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	ft_print_death(t_philo *philo, t_info *info)
 {
 	uintmax_t	timestamp;
 
-	timestamp = ft_get_ts(&info->launch_time);
 	pthread_mutex_lock(&info->print_mutex);
+	timestamp = ft_get_ts(&info->launch_time);
 	printf("%ju %zu %s\n", timestamp, philo->philo_id, DEAD);
 	pthread_mutex_unlock(&info->print_mutex);
 }
