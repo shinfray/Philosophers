@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:38:08 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 12:11:06 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/29 12:23:44 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*ft_philo(void *arg)
 	if (info->total_philos == 1)
 		return (ft_one_philo(philo));
 	if ((info->total_philos & 1) == 1 && (philo->philo_id & 1) == 0)
-		ft_usleep_philo(info, 10);
+		ft_usleep_philo(info, 5);
 	while (info->exit_status != EXIT_FAILURE && info->dead_philo_index < 0 \
 			&& info->hungry_philos_atomic > 0)
 	{
