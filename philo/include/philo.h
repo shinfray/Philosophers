@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 15:51:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:07:24 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct info
 typedef struct philo
 {
 	t_info				*info;
-	size_t				philo_id;
+	size_t				id;
 	_Atomic uintmax_t	last_meal_atomic;
 	_Atomic uintmax_t	n_meal_atomic;
 	pthread_mutex_t		*left_fork;

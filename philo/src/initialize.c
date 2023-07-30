@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:02:04 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/29 00:02:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:07:24 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	ft_set_philo_info(t_info *info, t_philo **philo)
 	while (i < info->total_philos)
 	{
 		(*philo + i)->info = info;
-		(*philo + i)->philo_id = i + 1;
+		(*philo + i)->id = i + 1;
 		++i;
 	}
 }
