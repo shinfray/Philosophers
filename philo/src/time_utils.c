@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:41:11 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/30 02:07:24 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/07/30 10:48:08 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_usleep_philo(t_info *info, uintmax_t ms)
 
 	ts = 0;
 	gettimeofday(&start, NULL);
-	while (ts <= ms)
+	while (ts < ms)
 	{
 		if (info->dead_philo_index >= 0 || info->hungry_philos_atomic == 0)
 			return (-1);
