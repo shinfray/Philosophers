@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 09:49:21 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/14 19:54:33 by shinfray         ###   ########.fr       */
+/*   Created: 2023/08/08 12:25:33 by shinfray          #+#    #+#             */
+/*   Updated: 2023/08/08 12:27:48 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,15 @@ static int			ft_retrieve_arguments(t_info *info, int argc, char **argv);
 int	ft_check_arguments(int argc, char **argv, t_info *info)
 {
 	if (argc < 5 || argc > 6)
-	{
-		write(2, "Error: Wrong number of argument\n", 32);
-		return (-1);
-	}
-	if (ft_retrieve_arguments(info, argc, argv) == -1)
-	{
-		write(2, "Error: Arguments not well formated\n", 35);
-		return (-1);
-	}
-	if (info->total_philos < 1)
-	{
-		write(2, "Error: at least one philosopher needed\n", 39);
-		return (-1);
-	}
-	if (argc == 6 && info->meal_goal < 1)
-	{
-		write(2, "Error: at least one meal needed\n", 32);
-		return (-1);
-	}
-	return (0);
+		write(2, "Wrong number of argument\n", 25);
+	else if (ft_retrieve_arguments(info, argc, argv) == -1 \
+		|| info->total_philos < 1 || info->time_to_die < 1 \
+		|| info->time_to_eat < 1 || info->time_to_sleep < 1 \
+		|| (argc == 6 && info->meal_goal < 1))
+		write(2, "wrong argument format (should be greater than zero)\n", 52);
+	else
+		return (0);
+	return (-1);
 }
 
 static uintmax_t	ft_strtoumax(const char *str, int *err_status)
