@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 17:02:04 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/30 02:07:24 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:45:23 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static int	ft_init_mutexes(t_info *info);
 
 int	ft_initialize(t_info *info, t_philo **philo)
 {
+	info->sleep_value = (useconds_t)(info->total_philos * 2);
+	if (info->sleep_value > 1000)
+		info->sleep_value = 1000;
 	info->exit_status = EXIT_SUCCESS;
 	info->dead_philo_index = -1;
 	if (ft_alloc_all(info, philo) == -1)

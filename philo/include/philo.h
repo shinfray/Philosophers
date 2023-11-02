@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 08:48:18 by shinfray          #+#    #+#             */
-/*   Updated: 2023/07/30 02:07:24 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:38:38 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct info
 	uintmax_t		meal_goal;	
 	_Atomic size_t	hungry_philos_atomic;
 	_Atomic ssize_t	dead_philo_index;
+	useconds_t		sleep_value;
 	bool			infinite_mode;
 	bool			exit_status;
 }				t_info;
